@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+import * as actions from "actions";
+import requireAuth from "components/requireAuth";
+
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Divider from "@material-ui/core/Divider";
@@ -51,4 +54,7 @@ class CommentList extends Component {
 function mapStateToPros(state) {
   return { comments: state.comments };
 }
-export default connect(mapStateToPros)(CommentList);
+export default connect(
+  mapStateToPros,
+  actions
+)(requireAuth(CommentList));

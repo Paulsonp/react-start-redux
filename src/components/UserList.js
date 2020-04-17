@@ -78,7 +78,7 @@ class UserList extends Component {
   }
   render() {
     return (
-      <Container maxWidthXs maxWidth="lg" fixed>
+      <Container maxwidthxs="true" maxWidth="lg" fixed>
         <Grid container spacing={2} direction="row" justify="flex-start" alignItems="flex-start">
           {this.renderUsers()}
         </Grid>
