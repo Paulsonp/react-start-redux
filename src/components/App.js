@@ -7,7 +7,10 @@ import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 
 import CommentBox from "components/CommentBox";
 import CommentList from "components/CommentList";
+import UserList from "components/UserList";
+import MenuHeader from "components/MenuHeader";
 import * as actions from "actions";
+import "cssStyles/style.scss";
 
 class App extends Component {
   renderButton() {
@@ -33,6 +36,9 @@ class App extends Component {
         </Typography>
 
         <Link to="/post">Post a Comment</Link>
+        <Typography>
+          <Link to="/users">User List</Link>
+        </Typography>
         <Typography color="textPrimary">{this.renderButton()}</Typography>
       </Breadcrumbs>
     );
@@ -40,8 +46,10 @@ class App extends Component {
   render() {
     return (
       <div>
+        <MenuHeader />
         {this.renderHeader()}
         <Route path="/post" component={CommentBox} />
+        <Route path="/users" component={UserList} />
         <Route path="/" exact component={CommentList} />
       </div>
     );
