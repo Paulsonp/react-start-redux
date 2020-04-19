@@ -7,6 +7,7 @@ import "cssStyles/style.scss";
 // components
 import Layout from "Layout/Layout";
 import Login from "Layout/modules/login/Login";
+import Error from "../Layout/error/Error";
 
 // context
 import { useUserState } from "context/UserContext";
@@ -22,7 +23,7 @@ export default function App() {
         <Route exact path="/app" render={() => <Redirect to="app/dashbord" />} />
         <PrivateRoute path="/app" component={Layout} />
         <PublicRoute path="/login" component={Login} />
-        {/* <Route component={Error} /> */}
+        <Route component={Error} />
       </Switch>
     </HashRouter>
   );
