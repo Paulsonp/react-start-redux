@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import requireAuth from "components/requireAuth";
 import * as actions from "actions";
 import "cssStyles/userList.scss";
 
@@ -22,7 +21,6 @@ import Container from "@material-ui/core/Container";
 class UserList extends Component {
   componentDidMount() {
     this.props.fetchUsers();
-    console.log("unniyettan first");
   }
   renderUsers() {
     return this.props.users.map((user, index) => {
@@ -93,4 +91,4 @@ function mapStateToPros(state) {
 export default connect(
   mapStateToPros,
   actions
-)(requireAuth(UserList));
+)(UserList);

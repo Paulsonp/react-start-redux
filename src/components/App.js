@@ -1,28 +1,72 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React from "react";
+import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
 
-import SideDrawer from "components/SideNav/SideDrawer";
-import * as actions from "actions";
+// import * as actions from "actions";
 import "cssStyles/style.scss";
 
-class App extends Component {
-  renderHeader() {
+// components
+import Layout from "Layout/Layout";
+import Login from "Layout/modules/login/Login";
+
+// context
+import { useUserState } from "context/UserContext";
+
+export default function App() {
+  // global
+  var { isAuthenticated } = useUserState();
+
+  return (
+    <HashRouter>
+      <Switch>
+        <Route exact path="/" render={() => <Redirect to="app/dashbord" />} />
+        <Route exact path="/app" render={() => <Redirect to="app/dashbord" />} />
+        <PrivateRoute path="/app" component={Layout} />
+        <PublicRoute path="/login" component={Login} />
+        {/* <Route component={Error} /> */}
+      </Switch>
+    </HashRouter>
+  );
+
+  // #######################################################################
+
+  function PrivateRoute({ component, ...rest }) {
     return (
-      <div>
-        <SideDrawer />
-      </div>
+      <Route
+        {...rest}
+        render={props =>
+          isAuthenticated ? (
+            React.createElement(component, props)
+          ) : (
+            <Redirect
+              to={{
+                pathname: "/login",
+                state: {
+                  from: props.location
+                }
+              }}
+            />
+          )
+        }
+      />
     );
   }
-  render() {
-    return <div>{this.renderHeader()}</div>;
+
+  function PublicRoute({ component, ...rest }) {
+    return (
+      <Route
+        {...rest}
+        render={props =>
+          isAuthenticated ? (
+            <Redirect
+              to={{
+                pathname: "/"
+              }}
+            />
+          ) : (
+            React.createElement(component, props)
+          )
+        }
+      />
+    );
   }
 }
-
-function mapStateToProps(state) {
-  return { auth: state.auth };
-}
-
-export default connect(
-  mapStateToProps,
-  actions
-)(App);

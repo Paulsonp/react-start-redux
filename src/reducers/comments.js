@@ -10,7 +10,7 @@ export default function(state = [], action) {
       // console.log("hai", data);
       // Mapping form JSON
       const comments = action.payload.data.map(comment => comment);
-      console.log("hai", action.payload);
+
       return [...state, ...comments];
 
     default:

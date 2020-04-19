@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SAVE_COMMENT, FETCH_COMMENTS, FETCH_USERS, CHANGE_AUTH } from "actions/types";
+import { SAVE_COMMENT, FETCH_COMMENTS, FETCH_USERS, CHANGE_AUTH, CHART_DAILY_RESULT_SUCCESS } from "actions/types";
 
 export function saveComment(comment) {
   return {
@@ -20,6 +20,13 @@ export function fetchUsers() {
   return {
     type: FETCH_USERS,
     payload: userResponse
+  };
+}
+export function fetchDailyResult() {
+  const dailyResponse = axios.get("https://api.rootnet.in/covid19-in/stats/daily");
+  return {
+    type: CHART_DAILY_RESULT_SUCCESS,
+    payload: dailyResponse
   };
 }
 
